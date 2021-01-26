@@ -83,23 +83,29 @@ var moving_block = function(){
 // });
 
 window.addEventListener('click', onMouseMove, false);
-var flags=0;
-function onMouseMove(event, geometry){
-    flags=1;
-    flag=-1;
-    console.log('clicked');
-    stacks.position.y-=0.05;
-    var geometry = stacks.geometry;
-    geometry.computeBoundingBox();
-    var center = new THREE.Vector3();
-    geometry.boundingBox.getCenter( center );
-    stacks.localToWorld( center );
-    console.log(center);
-    console.log(stacks.position);
-    stacks.scale.x = 1 - (stacks.position.x + 0.5);
-    console.log(stacks.position.x + 0.5);
-    console.log(stacks.scale.x);
-    flags=0; 
+
+function onMouseMove(event){
+    flag = -1;
+    var x1, x2, reformed_size;
+    console.log(stacks.position.x);
+    console.log(stack.position.x-0.5);
+    if (stacks.position.x < (stack.position.x-0.5)){
+        console.log('I am resizing');
+        x1 = stacks.position.x + 0.5;
+        x2 = stack.position.x - 0.5;
+        console.log('x1',x1,x2);
+       // reformed_size = x1 - x2;
+        reformed_size = ( x1 - x2);
+        console.log(stacks.position.x);
+        console.log(reformed_size);
+        stacks.scale.set(reformed_size, stacks.scale.y, stacks.scale.z);
+        console.log(stacks.scale);
+        //stack.scale.x = 0.75;
+        console.log(stack.position.x+0.5);
+        //stacks.position.x = (x1 +x2) / 2;
+        stacks.position.y -= 0.05;
+    }
+    
 
 }
 console.log(flag);  
